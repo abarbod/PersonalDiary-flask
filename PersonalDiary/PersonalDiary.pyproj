@@ -27,6 +27,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="PersonalDiary\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PersonalDiary\models.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="PersonalDiary\__init__.py" />
     <Compile Include="PersonalDiary\views.py" />
@@ -44,6 +50,9 @@
     <Folder Include="PersonalDiary\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PersonalDiary\templates\account.html" />
+    <Content Include="PersonalDiary\templates\login.html" />
+    <Content Include="PersonalDiary\templates\register.html" />
     <Content Include="requirements.txt" />
     <Content Include="PersonalDiary\static\content\bootstrap.css" />
     <Content Include="PersonalDiary\static\content\bootstrap.min.css" />

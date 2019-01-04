@@ -1,12 +1,18 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
     <title>{{ title }} - My Flask Application</title>
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    {% block head %}
+    {% endblock %}
+
 </head>
 
 <body>
@@ -25,13 +31,37 @@
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('about') }}">About</a></li>
                     <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('note') }}"> My Note</a></li>
+                    {% endif %}
+
+
                 </ul>
+                <div class="nav-item nav-link navbar-right">
+
+                    <ul class="nav navbar-nav ">
+                        {% if current_user.is_authenticated %}
+                        <li><a class="nav-item nav-link navbar-right" href="{{ url_for('account') }}">Account</a></li>
+                        <li><a class="nav-item nav-link navbar-right" href="{{ url_for('logout') }}">Logout</a></li>
+                        {% else %}
+                        <li><a class="nav-item nav-link navbar-right" href="{{ url_for('login') }}">Login</a></li>
+                        <li><a class="nav-item nav-link navbar-right" href="{{ url_for('register') }}">Register</a></li>
+
+                        {% endif %}
+
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
 
     <div class="container body-content">
-        {% block content %}{% endblock %}
+        <div class="page-content">
+            <div class="wrapper">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
         <hr />
         <footer>
             <p>&copy; {{ year }} - My Flask Application</p>
@@ -41,7 +71,10 @@
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <script src="/static/scripts/respond.js"></script>
-    {% block scripts %}{% endblock %}
+   
+    {% block script %}
+    {% endblock %}
+
 
 </body>
 </html>
