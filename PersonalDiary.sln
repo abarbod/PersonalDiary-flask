@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PersonalDiary", "PersonalDiary\PersonalDiary.pyproj", "{0B5E34AF-C49D-4015-8B36-80E3DB984CC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B5E34AF-C49D-4015-8B36-80E3DB984CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5E34AF-C49D-4015-8B36-80E3DB984CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5E34AF-C49D-4015-8B36-80E3DB984CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5E34AF-C49D-4015-8B36-80E3DB984CC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {117C3700-A648-4FE3-82C0-1A5F1D5D5EE0}
+	EndGlobalSection
+EndGlobal
