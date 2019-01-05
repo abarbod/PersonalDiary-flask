@@ -3,21 +3,23 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request, flash, jsonify
 from PersonalDiary import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, request
-from PersonalDiary.forms import RegistrationForm, LoginForm
-from PersonalDiary.models import User, Post
+from PersonalDiary.forms import RegistrationForm, LoginForm, DiaryNoteForm
+from PersonalDiary.models import User, DiaryNote
 
 @app.route('/home')
 @app.route('/')
 def home():
     """Renders the home page."""
+    notes = DiaryNote.query.all()
     return render_template(
         'index.html',
         title='Home Page',
         year=datetime.now().year,
+        notes=notes
     )
 
 @app.route('/contact')
@@ -37,12 +39,21 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='Your application description page.'
+        message='Your application description page.',
+        
     )
 
-@app.route('/note')
+@app.route('/note/new', methods=["GET","POST"])
 def note():
-    return render_template("blogWrite.html")
+    form = DiaryNoteForm()
+    if form.validate_on_submit():       
+        post = DiaryNote(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been created!', 'success')       
+        return redirect(url_for('home'))
+    return render_template('create_note.html', title='New Post', form=form, legend='New Post')
+   
 
 @app.route("/uploadimage/", methods=["POST",])
 def UploadImage():
