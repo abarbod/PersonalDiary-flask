@@ -3,24 +3,27 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, request, flash, jsonify
+from flask import (render_template, url_for, flash,
+                   redirect, request, abort, Blueprint)
 from PersonalDiary import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import render_template, url_for, flash, redirect, request
 from PersonalDiary.forms import RegistrationForm, LoginForm, DiaryNoteForm
 from PersonalDiary.models import User, DiaryNote
 
+
+
 @app.route('/home')
 @app.route('/')
 def home():
-    """Renders the home page."""
-    notes = DiaryNote.query.all()
+    """Renders the home page."""   
     return render_template(
-        'index.html',
-        title='Home Page',
-        year=datetime.now().year,
-        notes=notes
-    )
+            'index.html',
+            title='Home Page',
+            year=datetime.now().year,  
+            )
+
+
 
 @app.route('/contact')
 def contact():
@@ -32,19 +35,23 @@ def contact():
         message='Your contact page.'
     )
 
-@app.route('/about')
-def about():
+@app.route('/note')
+def note():
     """Renders the about page."""
+    if current_user.is_authenticated:
+        notes = DiaryNote.query.filter_by(user_id=current_user.id).all() 
+    else:
+        notes = []
+
     return render_template(
-        'about.html',
+        'note.html',
         title='About',
         year=datetime.now().year,
-        message='Your application description page.',
-        
+        notes = notes        
     )
 
 @app.route('/note/new', methods=["GET","POST"])
-def note():
+def create_note():
     form = DiaryNoteForm()
     if form.validate_on_submit():       
         post = DiaryNote(title=form.title.data, content=form.content.data, author=current_user)
@@ -54,38 +61,11 @@ def note():
         return redirect(url_for('home'))
     return render_template('create_note.html', title='New Post', form=form, legend='New Post')
    
+@app.route("/note/<int:note_id>")
+def viwe_note(note_id):
+    note = DiaryNote.query.get_or_404(note_id)
+    return render_template('viwe_note.html', title=note.title, note=note)
 
-@app.route("/uploadimage/", methods=["POST",])
-def UploadImage():
-    app.logger.debug(request.files)
-    f = request.files.get("WriteBlogImage")
-    if f and allowed_file(f.filename):
-        filename = secure_filename(f.filename)
-        filedir  = os.path.join(app.root_path, UPLOAD_FOLDER)
-        if not os.path.exists(filedir): os.makedirs(filedir)
-        app.logger.debug(filedir)
-        f.save(os.path.join(filedir, filename))
-        imgUrl = request.url_root + IMAGE_UPLOAD_DIR + filename
-        res =  Response(imgUrl)
-        res.headers["ContentType"] = "text/html"
-        res.headers["Charset"] = "utf-8"
-        return res
-    else:
-        result = r"error|未成功获取文件，上传失败"
-        res =  Response(result)
-        res.headers["ContentType"] = "text/html"
-        res.headers["Charset"] = "utf-8"
-        return res
-
-@app.route("/test/")
-def GetImage():
-    return """<html><body>
-<form action="/uploadimage/" method="post" enctype="multipart/form-data" name="upload_form">
-  <label>选择图片文件</label>
-  <input name="WriteBlogImage" type="file" accept="image/gif, image/jpeg"/>
-  <input name="upload" type="submit" value="上传" />
-</form>
-</body></html>"""
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

@@ -1,0 +1,40 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<article class="content-section">
+    <div class="">
+        
+        <h4 class="article-title text-center">مذكرات يوم :  {{ note.date_posted.strftime('%Y-%m-%d') }}</h4>
+        <h2 class="article-title text-center mb-2 "> بعنوان : {{ note.title }}</h2>
+        <textarea class="article-content">{{ note.content }}</textarea>
+    </div>
+</article>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+
+<!-- Include external JS libs. -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
+<!-- Include Editor JS files. -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/froala_editor.pkgd.min.js"></script>
+
+<!-- Initialize the editor. -->
+<script>$(function () { $('textarea').froalaEditor() });</script>
+
+{% endblock script %}

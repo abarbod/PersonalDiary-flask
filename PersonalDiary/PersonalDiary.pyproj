@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PersonalDiary\" />
+    <Folder Include="PersonalDiary\static\profile_pics\" />
     <Folder Include="PersonalDiary\static\" />
     <Folder Include="PersonalDiary\static\content\" />
     <Folder Include="PersonalDiary\static\fonts\" />
@@ -74,7 +75,7 @@
     <Content Include="PersonalDiary\static\scripts\respond.js" />
     <Content Include="PersonalDiary\static\scripts\respond.min.js" />
     <Content Include="PersonalDiary\static\scripts\_references.js" />
-    <Content Include="PersonalDiary\templates\about.html" />
+    <Content Include="PersonalDiary\templates\viwe_note.html" />
     <Content Include="PersonalDiary\templates\contact.html" />
     <Content Include="PersonalDiary\templates\index.html" />
     <Content Include="PersonalDiary\templates\layout.html" />

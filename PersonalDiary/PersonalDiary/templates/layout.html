@@ -37,10 +37,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
                     <li><a href="{{ url_for('contact') }}">Contact</a></li>
                     {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('note') }}"> My Note</a></li>
+                    <li><a href="{{ url_for('note') }}">My Notes</a></li>
+                    <li><a href="{{ url_for('create_note') }}"> Create Note</a></li>
                     {% endif %}
 
 
@@ -83,7 +83,7 @@
                 </div>
                 <hr />
                 <footer>
-                    <p>&copy; {{ year }} - My Flask Application</p>
+                    <p>&copy; {{ year }} - all rights reserved </p>
                 </footer>
             </div>
 
